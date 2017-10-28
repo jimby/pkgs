@@ -1,0 +1,9 @@
+select shippers.sname, packages.pnumber,packages.preceived,packages.invoiced,warehouses.wname,orders.onumber,invoices.inumber
+   from packages
+   left outer join shippers on packages.snumber=shippers.shipno
+   left outer join warehouses on packages.wid=warehouses.wid
+   left outer join pkgpo on packages.pid=pkgpo.pid
+   left outer join orders on pkgpo.oid=orders.oid
+   left outer join pkginv on packages.pid = pkginv.pid
+   left outer join invoices on pkginv.iid=invoices.iid
+   where month(packages.preceived)=month(now()) and year(packages.preceived)=year(now()) and dayofmonth(packages.preceived)=day(now())

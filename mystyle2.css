@@ -1,0 +1,32 @@
+ body {
+	padding-left: 1em;
+	font-family: Georgia,"Times New Roman",
+		Times,serif;
+    color:black;
+    background : #ccdff3; /* background-image: url("blue_gradient.png");
+    background-repeat: repeat-x;*/
+ }
+DIV.block
+{
+    padding-left: 1m;
+    color:black;
+    background : #ccdff3;
+
+}
+DIV.block_center
+{
+    padding-left: 25em;
+    color:black;
+    background : #ccdff3;
+
+}
+
+tr.alt td {
+    background : #ccdff3;
+   
+}
+
+tr.over td {
+   /* background : #92bce8;*/
+   background : #eaec51;
+}

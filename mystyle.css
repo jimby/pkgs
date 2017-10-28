@@ -1,0 +1,99 @@
+ body {
+	padding-left: 20em;
+    font-family:Arial,Verdana,Sans-serif;
+    color: white;
+    background-image: url("gradient2.png");
+    background-repeat: repeat-x;
+    background-color: #5f9ea0 }
+	
+    ul.navbar
+     {
+	    list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        position: absolute;
+        top: 5em;
+        left:3em;
+        width: 15em
+     }
+	h1  {
+		font-family: Helvetica,Geneva,Arial,
+			SunSans-Regular, sans-serif
+    }
+    ul.center_navbar
+     {
+	    list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        position: absolute;
+        top: 5em;
+        left: 20em;
+        width: 20em
+     }
+	h1  {
+		font-family: Helvetica,Geneva,Arial,
+			SunSans-Regular, sans-serif
+        }
+	ul.navbar li
+         {
+            background: white;
+            margin: 0.5em 0;
+            padding: 0.3em;
+            border-right: 1em solid black
+         }
+    ul.center_navbar li
+         {
+            background: white;
+            margin: 0.5em 0;
+            padding: 0.3em;
+            border-right: 1em solid black
+         }
+     ul.navbar a {
+        text-decoration: none }
+     
+     ul.center_navbar a {
+        text-decoration: none }
+
+     a:link
+     {
+        color: #47a547
+     }
+    
+     a:visited
+     {
+        color: #2f3133
+     }
+	
+     address
+     {
+        margin-top: 1em;
+        padding-top: 1em;
+        border-top: thin dotted
+     }
+DIV.block
+{
+  COLOR: white;
+   padding: 0;
+   margin: 0;
+
+   position: absolute;
+   top: 3em;
+   left: 25em;
+   width: 30em
+}
+
+#block
+{
+	COLOR: red;
+	background:purple;
+
+	padding: 0;
+    margin: 0;
+
+     position: absolute;
+     top: 3em;
+     left: 25em;
+     width: 30e
+}

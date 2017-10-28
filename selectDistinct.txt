@@ -1,0 +1,35 @@
+function selectDistinct ($connection,$tablename,$columname,$pulldownname,$additionaloption,$defaultvalue)
+{
+	$defaultWithinResultSet = FALSE;
+	
+	$distinctQuery = "SELECT DISTINCT $columname FROM $tablename;
+	if (!($resusltID = @mysql_query ($distinctquery,$connection)))
+		showerror();
+		
+	$i=0;
+	while ($row = @mysql_fetch_array($resultId))
+		$resultBuffer[$i++] = $row[$columnName];
+		
+	echo "\n<select name = \"$pulldownname\">";
+	
+	if (isset($additionalOption))
+		if ($defaultValue == $additionalOption)
+			echo "\n\t<option selected>$additionalOption";
+		else
+			echo "\n\t<option>$additionalOption";
+		
+	if (isset($defaultValue))
+	{
+		foreach ($resultBuffer as $result)
+			if ($result == $defaultValue)
+				echo "\n\t<option selected>$result";
+			else
+				echo "\n\t<option>$result";
+	}
+	else
+	{
+		foreach ($resultBuffer as $result)
+			echo "\n\t<option>$result";
+	}
+	echo "\n</select>;
+}

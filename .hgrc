@@ -1,0 +1,23 @@
+[ui]
+username=snarkykid <jsdalton@cox.net>
+editor=gedit
+merge = diffmerge
+
+[extensions]
+hgext.extdiff =
+
+[extdiff]
+cmd.diffmerge = /usr/bin/diffmerge
+
+[merge-tools]
+diffmerge.executable = /usr/bin/diffmerge
+diffmerge.args = -merge -result=$output -t1="Local Version" -t2=$output -t3="Other Version" -caption=$output $local $base $other
+diffmerge.binary = False
+diffmerge.symlinks = False
+diffmerge.gui = True
+
+
+[auth]
+bb.prefix = https://bitbucket.org
+bb.username = snarkykid
+bb.password = pinkpony312

@@ -1,0 +1,104 @@
+<?php
+session_start();
+ require_once "Includes/PkgsDB.php";
+
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C/n/DTD HTML 4.01 Transitional//EN">
+<!--ScanPkg.php -->
+<html>
+    <head>
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+      <title>Scan Packages</title>
+         <link type="text/css" rel="stylesheet" href="mystyle.css">
+    </head>
+<body>
+
+
+<?php
+
+// date set to menu.php value
+$today = filter_input(INPUT_POST,'mdate', FILTER_SANITIZE_SPECIAL_CHARS);   
+if (empty($today))
+    $today = date('Y-m-d');                                // <-- filter this
+
+$mText=filter_input(INPUT_POST,'scan2', FILTER_SANITIZE_SPECIAL_CHARS);
+if (empty($mText)) { 
+  echo "no package numbers posted";
+}
+//split up scanned array into individual elements
+
+$rTest = explode("&#13;&#10;",$mText); //<< try this instead
+$i=0;
+
+
+//loop
+$t=substr($rTest[$i],0,1);
+while (!empty($rTest[$i]))
+{
+
+//find shipper's number as a substring of tracking number
+    if (substr($rTest[$i],1,1)== 'Z')
+        {
+        $shipno = substr($rTest[$i],2,6);
+        }//endif
+    elseif (substr($rTest[$i],1,1)== 'z')
+        {
+        $shipno = substr($rTest[$i],2,6);
+        }//end elseif
+    elseif (substr($rTest[$i],0,1) == '9')
+        {
+        $shipno = substr($rTest[$i],7,7);
+        }
+    else
+        $shipno = '0000000';
+
+//look for missing shippers.sname
+     $result=PkgsDB::getInstance()->FindShipno($shipno);
+   
+  if ($result)
+    {
+           
+        if(isset($_SESSION['warehouse'])){
+        $warehouse = $_SESSION['warehouse'];
+        }
+        
+        if(isset($_SESSION['wid'])){
+            $wid = $_SESSION['wid'];
+        }
+
+        $pnumber = $rTest[$i];      //package number
+        $snumber  = $shipno;        // shipper number
+        $preceived   = $today;      // received date
+        $wid     = intval($wid);
+    
+        //insert into packages
+        //
+        //$query= sprintf("insert into packages (pnumber,snumber,preceived,wid) values ('%s','%s','%s','%s')",
+        //$pnumber,$shipno,$today,$wid); << this didn't seem to work
+        
+        //$query= "insert into packages (pnumber,snumber,preceived,wid) values ('$pnumber','$snumber','$preceived','$wid')";          // db.php
+        
+        //$result=mysqli_query($conn,$query);
+        $result = PkgsDB::getInstance()->InsertPackageNumber($pnumber,$snumber,$preceived,$wid);
+       
+        if (!$result) echo "query failed...";
+            {
+              $i++;
+            }
+    
+        
+    } 
+    else {
+    echo "The shipper is not on file for this package: ",$rTest[$i];    
+    }
+    $i=$i+1;
+}
+mysqli_close($con);
+?>
+<!--<a href="#" onClick="history.go(-1)">Back</a>-->
+<input type=button value="Back" onClick="history.go(-1)">
+
+
+</body>
+</html>

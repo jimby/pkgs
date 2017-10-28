@@ -1,0 +1,63 @@
+CREATE TABLE users (
+  uid INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  userName CHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL UNIQUE,
+  userPass CHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE warehouses (
+  wid INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  wname CHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL UNIQUE,
+  wlocation CHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE packages (
+  pid INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  wid INT unsigned not null,
+  pnumber CHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  order_number CHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  invoice_number CHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  invoiced varchar(100),
+  snumber varchar(100),
+  preceived varchar(50),
+  comments varchar(250),
+  FOREIGN KEY (wid) REFERENCES warehouses (wid)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE shippers (
+  sid int(10) unsigned NOT NULL auto_increment,
+  sname varchar(100),
+  shipno varchar(100),
+  slocation varchar(250),
+  PRIMARY KEY (sid)
+  ) ENGINE=InnoDB;
+
+CREATE TABLE orders (
+  oid int(10) unsigned NOT NULL auto_increment,
+  onumber varchar(100),
+  odate varchar(100),
+  PRIMARY KEY (oid)
+  ) ENGINE=InnoDB;
+
+CREATE TABLE invoices (
+    iid int(10) unsigned NOT NULL auto_increment,
+    inumber varchar(100),
+    PRIMARY KEY (iid)
+  	) ENGINE=InnoDB;
+
+CREATE TABLE pkgpo (
+    ppid int(10) unsigned NOT NULL auto_increment,
+    oid int(10) unsigned NOT NULL,
+    PRIMARY KEY (ppid),
+    FOREIGN KEY (oid) REFERENCES orders (oid)
+    ON DELETE CASCADE ON UPDATE CASCADE
+    ) ENGINE=InnoDB;
+
+CREATE TABLE pkginv (
+    piid int(10) unsigned NOT NULL auto_increment,
+    pid int(10) unsigned NOT NULL,
+    PRIMARY KEY (piid),
+    FOREIGN KEY (pid) REFERENCES packages (pid)
+    ON DELETE CASCADE ON UPDATE CASCADE
+    ) ENGINE=InnoDB;
